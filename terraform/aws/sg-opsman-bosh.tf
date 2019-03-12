@@ -245,3 +245,13 @@ resource "aws_security_group_rule" "allow_om_director_credhub_ingress" {
     security_group_id = "${aws_security_group.pcf-bosh.id}"
     source_security_group_id = "${aws_security_group.pcf-opsman.id}"
 }
+
+resource "aws_security_group_rule" "allow_default_bosh_ssh_egress" {
+    description = "Outbound Default BOSH SSH Proxy Access"
+    type = "egress"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-default.id}"
+}

@@ -73,4 +73,12 @@ resource "aws_security_group" "pcf-default" {
         protocol = "tcp"
         prefix_list_ids = ["${var.aws_s3_endpoint_sg}"]
     }
+
+    ingress {
+        description = "Inbound BOSH SSH"
+        from_port = 22
+        to_port = 22
+        protocol = "tcp"
+        security_groups = ["${aws_security_group.pcf-bosh.id}"]
+    }
 }
