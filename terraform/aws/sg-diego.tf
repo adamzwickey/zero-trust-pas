@@ -56,3 +56,23 @@ resource "aws_security_group_rule" "allow_diego_egress_nats" {
     security_group_id = "${aws_security_group.pcf-diego.id}"
     source_security_group_id = "${aws_security_group.pcf-nats.id}"
 }
+
+resource "aws_security_group_rule" "allow_diego_ingress_cc" {
+    description = "Inbound Diego Cell Access"
+    type = "ingress"
+    from_port = 8889
+    to_port = 8889
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-cc.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_locket_ingress_cc" {
+    description = "Inbound Diego Cell Locket Access"
+    type = "ingress"
+    from_port = 8891
+    to_port = 8891
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-cc.id}"
+}

@@ -36,3 +36,13 @@ resource "aws_security_group_rule" "allow_uaa_egress_nats" {
     security_group_id = "${aws_security_group.pcf-uaa.id}"
     source_security_group_id = "${aws_security_group.pcf-nats.id}"
 }
+
+resource "aws_security_group_rule" "allow_uaa_ingress_cc" {
+    description = "Inbound CC Access"
+    type = "ingress"
+    from_port = 8443
+    to_port = 8443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-uaa.id}"
+    source_security_group_id = "${aws_security_group.pcf-cc.id}"
+}

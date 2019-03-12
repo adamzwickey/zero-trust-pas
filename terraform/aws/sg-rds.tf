@@ -49,3 +49,13 @@ resource "aws_security_group_rule" "allow_uaa_ingress_rds" {
     security_group_id = "${aws_security_group.pcf-rds.id}"
     source_security_group_id = "${aws_security_group.pcf-uaa.id}"
 }
+
+resource "aws_security_group_rule" "allow_cc_ingress_rds" {
+    description = "Inbound for CC"
+    type = "ingress"
+    from_port = 3306
+    to_port = 3306
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-rds.id}"
+    source_security_group_id = "${aws_security_group.pcf-cc.id}"
+}
