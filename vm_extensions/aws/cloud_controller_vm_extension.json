@@ -1,0 +1,4 @@
+vm-extension-config:
+  name: cloud_controller_vm_extension
+  cloud_properties:
+    security_groups: ["pcf_cc_security_group"]

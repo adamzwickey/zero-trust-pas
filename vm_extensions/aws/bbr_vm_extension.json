@@ -1,0 +1,4 @@
+vm-extension-config:
+  name: bbr_vm_extension
+  cloud_properties:
+    security_groups: ["pcf_bbr_security_group"]

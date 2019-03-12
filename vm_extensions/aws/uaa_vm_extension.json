@@ -1,0 +1,4 @@
+vm-extension-config:
+  name: uaa_vm_extension
+  cloud_properties:
+    security_groups: ["pcf_uaa_security_group"]
