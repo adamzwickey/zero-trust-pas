@@ -1,4 +1,4 @@
 vm-extension-config:
   name: diego_cell_vm_extension
   cloud_properties:
-    security_groups: ["pcf_diego_cell_security_group"]
+    security_groups: ["pcf_diego_cell_security_group","pcf_default_security_group"]

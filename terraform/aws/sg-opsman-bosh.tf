@@ -140,6 +140,14 @@ resource "aws_security_group" "pcf-bosh" {
     }
 
     egress {
+        description = "Outbound Access AWS ELB Resources"
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        security_groups = ["${var.aws_elb_endpoint_sg}"]
+    }
+
+    egress {
         description = "Outbound Access to RDS"
         from_port = 3306
         to_port = 3306
@@ -178,9 +186,29 @@ resource "aws_security_group_rule" "allow_om_bosh_nats_ingress" {
     source_security_group_id = "${aws_security_group.pcf-opsman.id}"
 }
 
+resource "aws_security_group_rule" "allow_default_bosh_registry_ingress" {
+    description = "Inbound Default BOSH Registry Access"
+    type = "ingress"
+    from_port = 25777
+    to_port = 25777
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-default.id}"
+}
+
 resource "aws_security_group_rule" "allow_default_bosh_agent_ingress" {
     description = "Inbound Default BOSH NATS Access"
     type = "ingress"
+    from_port = 4222
+    to_port = 4222
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-default.id}"
+}
+
+resource "aws_security_group_rule" "allow_default_bosh_agent_egress" {
+    description = "Outbound Default BOSH NATS Access"
+    type = "egress"
     from_port = 4222
     to_port = 4222
     protocol = "tcp"

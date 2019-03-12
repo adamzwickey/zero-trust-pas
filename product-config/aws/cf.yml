@@ -2,61 +2,46 @@ product-name: cf
 resource-config:
   backup_restore:
     additional_vm_extensions:
-    - default_vm_extension
     - bbr_vm_extension
   clock_global:
     additional_vm_extensions:
-    - default_vm_extension
     - cloud_controller_vm_extension
   cloud_controller:
     additional_vm_extensions:
-    - default_vm_extension
     - cloud_controller_vm_extension
   cloud_controller_worker:
     additional_vm_extensions:
-    - default_vm_extension
     - cloud_controller_vm_extension
   credhub:
     additional_vm_extensions:
-    - default_vm_extension
     - credhub_vm_extension
   diego_brain:
     additional_vm_extensions:
-    - default_vm_extension
     - diego_vm_extension
   diego_cell:
     additional_vm_extensions:
-    - default_vm_extension
     - diego_cell_vm_extension
   diego_database:
     additional_vm_extensions:
-    - default_vm_extension
     - diego_vm_extension
   doppler:
     additional_vm_extensions:
-    - default_vm_extension
     - loggregator_vm_extension
   loggregator_trafficcontroller:
     additional_vm_extensions:
-    - default_vm_extension
     - loggregator_vm_extension
   nats:
     additional_vm_extensions:
-    - default_vm_extension
     - nats_vm_extension
   router:
     additional_vm_extensions:
-    - default_vm_extension
     - router_vm_extension
   syslog_adapter:
     additional_vm_extensions:
-    - default_vm_extension
     - loggregator_vm_extension
   syslog_scheduler:
     additional_vm_extensions:
-    - default_vm_extension
     - loggregator_vm_extension
   uaa:
     additional_vm_extensions:
-    - default_vm_extension
     - uaa_vm_extension

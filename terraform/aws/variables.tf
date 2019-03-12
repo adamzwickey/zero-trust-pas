@@ -5,6 +5,7 @@ variable "aws_region" {}
 variable "aws_vpc" {}
 #Used for whitelisting AWS Resources
 variable "aws_ec2_endpoint_sg" {}
+variable "aws_elb_endpoint_sg" {}
 variable "aws_s3_endpoint_sg" {}
 
 #Other PCF Stuff
