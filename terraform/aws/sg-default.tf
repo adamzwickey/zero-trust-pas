@@ -33,4 +33,20 @@ resource "aws_security_group" "pcf-default" {
         protocol = "udp"
         cidr_blocks = ["0.0.0.0/0"]
     }
+
+    egress {
+        description = "Outbound BOSH NATS"
+        from_port = 4222
+        to_port = 4222
+        protocol = "tcp"
+        security_groups = ["${aws_security_group.pcf-bosh.id}"]
+    }
+
+    egress {
+        description = "Outbound BOSH Agent"
+        from_port = 6868
+        to_port = 6868
+        protocol = "tcp"
+        security_groups = ["${aws_security_group.pcf-bosh.id}"]
+    }
 }

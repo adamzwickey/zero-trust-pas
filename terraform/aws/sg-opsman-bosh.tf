@@ -178,6 +178,26 @@ resource "aws_security_group_rule" "allow_om_bosh_nats_ingress" {
     source_security_group_id = "${aws_security_group.pcf-opsman.id}"
 }
 
+resource "aws_security_group_rule" "allow_default_bosh_agent_ingress" {
+    description = "Inbound Default BOSH NATS Access"
+    type = "ingress"
+    from_port = 4222
+    to_port = 4222
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-default.id}"
+}
+
+resource "aws_security_group_rule" "allow_default_bosh_nats_ingress" {
+    description = "Inbound Default BOSH NATS Access"
+    type = "ingress"
+    from_port = 6868
+    to_port = 6868
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-default.id}"
+}
+
 resource "aws_security_group_rule" "allow_om_director_ingress" {
     description = "Inbound OpsMan Director Access"
     type = "ingress"

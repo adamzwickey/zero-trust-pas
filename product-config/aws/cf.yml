@@ -59,4 +59,4 @@ resource-config:
   uaa:
     additional_vm_extensions:
     - default_vm_extension
-    - uaa_mv_extension
+    - uaa_vm_extension

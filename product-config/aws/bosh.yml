@@ -1,0 +1,5 @@
+product-name: p-bosh
+resource-config:
+  compilation:
+    additional_vm_extensions:
+    - default_vm_extension
