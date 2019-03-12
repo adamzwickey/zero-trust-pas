@@ -46,3 +46,13 @@ resource "aws_security_group_rule" "allow_uaa_ingress_cc" {
     security_group_id = "${aws_security_group.pcf-uaa.id}"
     source_security_group_id = "${aws_security_group.pcf-cc.id}"
 }
+
+resource "aws_security_group_rule" "allow_uaa_ingress_credhub" {
+    description = "Inbound Credhub Access"
+    type = "ingress"
+    from_port = 8443
+    to_port = 8443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-uaa.id}"
+    source_security_group_id = "${aws_security_group.pcf-credhub.id}"
+}
