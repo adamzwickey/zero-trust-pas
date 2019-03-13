@@ -21,7 +21,7 @@ resource "aws_security_group_rule" "allow_diego_egress_cc" {
     description = "Outbound CC Access"
     type = "egress"
     from_port = 9022
-    to_port = 9022
+    to_port = 9023
     protocol = "tcp"
     security_group_id = "${aws_security_group.pcf-diego.id}"
     source_security_group_id = "${aws_security_group.pcf-cc.id}"
@@ -58,7 +58,7 @@ resource "aws_security_group_rule" "allow_diego_egress_nats" {
 }
 
 resource "aws_security_group_rule" "allow_diego_ingress_cc" {
-    description = "Inbound Diego Cell Access"
+    description = "Inbound CC Access"
     type = "ingress"
     from_port = 8889
     to_port = 8889
@@ -68,7 +68,7 @@ resource "aws_security_group_rule" "allow_diego_ingress_cc" {
 }
 
 resource "aws_security_group_rule" "allow_diego_locket_ingress_cc" {
-    description = "Inbound Diego Cell Locket Access"
+    description = "Inbound CC Locket Access"
     type = "ingress"
     from_port = 8891
     to_port = 8891
@@ -85,4 +85,144 @@ resource "aws_security_group_rule" "allow_diego_egress_loggregator" {
     protocol = "tcp"
     security_group_id = "${aws_security_group.pcf-diego.id}"
     source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_locket_ingress_internal" {
+    description = "Inbound Diego Internal Locket Access"
+    type = "ingress"
+    from_port = 8891
+    to_port = 8891
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    self= true
+}
+
+resource "aws_security_group_rule" "allow_diego_bbs_ingress_internal" {
+    description = "Inbound Diego Internal BBS Access"
+    type = "ingress"
+    from_port = 8889
+    to_port = 8889
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    self= true
+}
+
+resource "aws_security_group_rule" "allow_diego_locket_egress_internal" {
+    description = "Inbound Diego Internal Locket Access"
+    type = "egress"
+    from_port = 8891
+    to_port = 8891
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    self= true
+}
+
+resource "aws_security_group_rule" "allow_diego_bbs_egress_internal" {
+    description = "Inbound Diego Internal BBS Access"
+    type = "egress"
+    from_port = 8889
+    to_port = 8889
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    self= true
+}
+
+resource "aws_security_group_rule" "allow_diego_locket_ingress_cell" {
+    description = "Inbound Diego Cell Locket Access"
+    type = "ingress"
+    from_port = 8891
+    to_port = 8891
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_bbs_ingress_cell" {
+    description = "Inbound Diego Cell BBS Access"
+    type = "ingress"
+    from_port = 8889
+    to_port = 8889
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_cc_uploader_ingress_cell" {
+    description = "Inbound Diego Cell CC Uploader Access"
+    type = "ingress"
+    from_port = 9091
+    to_port = 9091
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_fileserver_ingress_cell" {
+    description = "Inbound Diego Cell File Server Access"
+    type = "ingress"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_fileserver_ingress_cell1" {
+    description = "Inbound Diego Cell File Server Access"
+    type = "ingress"
+    from_port = 8084
+    to_port = 8084
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_egress_rep" {
+    description = "Outbound Diego Cell Rep Access"
+    type = "egress"
+    from_port = 1801
+    to_port = 1801
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_egress_container_ssh" {
+    description = "Outbound Diego Cell SSH Access (container) Access"
+    type = "egress"
+    from_port = 61001
+    to_port = 65534
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_ingress_internal" {
+    description = "Inbound Diego Internal Access"
+    type = "ingress"
+    from_port = 9016
+    to_port = 9016
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    self= true
+}
+
+resource "aws_security_group_rule" "allow_diego_ingress_rep" {
+    description = "Inbound Diego Rep Access"
+    type = "ingress"
+    from_port = 1801
+    to_port = 1801
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_ingress_sik" {
+    description = "Inbound Silk Controller Access"
+    type = "ingress"
+    from_port = 4103
+    to_port = 4103
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
 }

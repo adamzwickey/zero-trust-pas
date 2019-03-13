@@ -26,6 +26,22 @@ resource "aws_security_group" "pcf-default" {
         self = true
     }
 
+    ingress {
+        description = "Inbound BOSH DNS"
+        from_port = 8053
+        to_port = 8053
+        protocol = "tcp"
+        self = true
+    }
+
+    egress {
+        description = "Outbound BOSH DNS"
+        from_port = 8053
+        to_port = 8053
+        protocol = "tcp"
+        self = true
+    }
+
     egress {
         description = "Outbound AWS NTP"
         from_port = 123
