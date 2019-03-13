@@ -26,3 +26,13 @@ resource "aws_security_group_rule" "allow_diego_cell_egress_credhub" {
     security_group_id = "${aws_security_group.pcf-diego-cell.id}"
     source_security_group_id = "${aws_security_group.pcf-credhub.id}"
 }
+
+resource "aws_security_group_rule" "allow_cell_egress_loggregator" {
+    description = "Outbound Loggregator Access"
+    type = "egress"
+    from_port = 8080
+    to_port = 8088
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+    source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
+}

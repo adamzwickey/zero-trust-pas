@@ -16,3 +16,13 @@ resource "aws_security_group_rule" "allow_router_egress_nats" {
     security_group_id = "${aws_security_group.pcf-router.id}"
     source_security_group_id = "${aws_security_group.pcf-nats.id}"
 }
+
+resource "aws_security_group_rule" "allow_router_egress_loggregator" {
+    description = "Outbound Loggregator Access"
+    type = "egress"
+    from_port = 8080
+    to_port = 8088
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
+}

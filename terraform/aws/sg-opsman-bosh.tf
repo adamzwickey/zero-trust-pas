@@ -255,3 +255,33 @@ resource "aws_security_group_rule" "allow_default_bosh_ssh_egress" {
     security_group_id = "${aws_security_group.pcf-bosh.id}"
     source_security_group_id = "${aws_security_group.pcf-default.id}"
 }
+
+resource "aws_security_group_rule" "allow_metrics_ingress_loggregtor" {
+    description = "Inbound Loggregator BOSH Access"
+    type = "ingress"
+    from_port = 25555
+    to_port = 25555
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
+}
+
+resource "aws_security_group_rule" "allow_metrics_ingress_loggregtor1" {
+    description = "Inbound Loggregator BOSH Metrics Access"
+    type = "ingress"
+    from_port = 25595
+    to_port = 25595
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
+}
+
+resource "aws_security_group_rule" "allow_metrics_ingress_loggregtor2" {
+    description = "Inbound Loggregator BOSH Metrics Access"
+    type = "ingress"
+    from_port = 8443
+    to_port = 8443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
+}

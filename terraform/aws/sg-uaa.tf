@@ -56,3 +56,23 @@ resource "aws_security_group_rule" "allow_uaa_ingress_credhub" {
     security_group_id = "${aws_security_group.pcf-uaa.id}"
     source_security_group_id = "${aws_security_group.pcf-credhub.id}"
 }
+
+resource "aws_security_group_rule" "allow_uaa_ingress_loggregator" {
+    description = "Inbound Loggregator Access"
+    type = "ingress"
+    from_port = 8443
+    to_port = 8443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-uaa.id}"
+    source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
+}
+
+resource "aws_security_group_rule" "allow_uaa_egress_loggregator" {
+    description = "Outbound Loggregator Access"
+    type = "egress"
+    from_port = 8080
+    to_port = 8088
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-uaa.id}"
+    source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
+}
