@@ -26,3 +26,95 @@ resource "aws_security_group_rule" "allow_router_egress_loggregator" {
     security_group_id = "${aws_security_group.pcf-router.id}"
     source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
 }
+
+
+resource "aws_security_group_rule" "allow_router_egress_diego_cell" {
+    description = "Outbound Diego Cell Container Access"
+    type = "egress"
+    from_port = 61001
+    to_port = 65534
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_router_ingress_external_http" {
+    description = "Inbound Diego Cell Container Access"
+    type = "ingress"
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    cidr_blocks = ["${var.router_ingress_cidr}"]
+    count = "${var.router_allow_http}"
+}
+
+resource "aws_security_group_rule" "allow_router_ingress_external_https" {
+    description = "Inbound Diego Cell Container Access"
+    type = "ingress"
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    cidr_blocks = ["${var.router_ingress_cidr}"]
+}
+
+resource "aws_security_group_rule" "allow_router_ingress_external_healthcheck" {
+    description = "Inbound LB healthcheck"
+    type = "ingress"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "allow_router_egress_uaa" {
+    description = "Outbound UAA Access"
+    type = "egress"
+    from_port = 8443
+    to_port = 8443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-uaa.id}"
+}
+
+resource "aws_security_group_rule" "allow_router_egress_uaa1" {
+    description = "Outbound UAA Access"
+    type = "egress"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-uaa.id}"
+}
+
+resource "aws_security_group_rule" "allow_router_egress_cc" {
+    description = "Outbound Cloud Controller Access"
+    type = "egress"
+    from_port = 3000
+    to_port = 3000
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-cc.id}"
+}
+
+resource "aws_security_group_rule" "allow_router_egress_cc_api" {
+    description = "Outbound Cloud Controller Access"
+    type = "egress"
+    from_port = 9024
+    to_port = 9024
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-cc.id}"
+}
+
+resource "aws_security_group_rule" "allow_router_egress_diego_network_policy" {
+    description = "Outbound Diego Network Policy Server Access"
+    type = "egress"
+    from_port = 4002
+    to_port = 4002
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego.id}"
+}

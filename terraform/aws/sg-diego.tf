@@ -217,7 +217,7 @@ resource "aws_security_group_rule" "allow_diego_ingress_rep" {
     source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
 }
 
-resource "aws_security_group_rule" "allow_diego_ingress_sik" {
+resource "aws_security_group_rule" "allow_diego_ingress_silk" {
     description = "Inbound Silk Controller Access"
     type = "ingress"
     from_port = 4103
@@ -225,4 +225,14 @@ resource "aws_security_group_rule" "allow_diego_ingress_sik" {
     protocol = "tcp"
     security_group_id = "${aws_security_group.pcf-diego.id}"
     source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_ingress_network_policy" {
+    description = "Inbound Network Policy Server Access"
+    type = "ingress"
+    from_port = 4002
+    to_port = 4002
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.router.id}"
 }

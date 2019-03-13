@@ -11,3 +11,6 @@ om_ingress_cidr        = "0.0.0.0/0"
 om_egress              = 1
 
 cells_allow_all_internal = 1
+
+router_ingress_cidr = "0.0.0.0/0"
+router_allow_http = 1

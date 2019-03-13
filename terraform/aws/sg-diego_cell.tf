@@ -170,8 +170,8 @@ resource "aws_security_group_rule" "allow_cell_egress_silk" {
 resource "aws_security_group_rule" "allow_cell_all_internal_egress" {
     description = "Outbound Access to other cells for C2C networking"
     type = "egress"
-    from_port = 0
-    to_port = 0
+    from_port = 61001
+    to_port = 65534
     protocol = -1
     security_group_id = "${aws_security_group.pcf-diego-cell.id}"
     self = true
@@ -181,10 +181,20 @@ resource "aws_security_group_rule" "allow_cell_all_internal_egress" {
 resource "aws_security_group_rule" "allow_cell_all_internal_ingress" {
     description = "Inbound Access from other cells for C2C networking"
     type = "ingress"
-    from_port = 0
-    to_port = 0
+    from_port = 61001
+    to_port = 65534
     protocol = -1
     security_group_id = "${aws_security_group.pcf-diego-cell.id}"
     self = true
     count = "${var.cells_allow_all_internal}"
+}
+
+resource "aws_security_group_rule" "allow_cell_container_ingress_router" {
+    description = "Inbound Container SSH Access"
+    type = "ingress"
+    from_port = 61001
+    to_port = 65534
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+    source_security_group_id = "${aws_security_group.pcf-router.id}"
 }

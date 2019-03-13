@@ -86,3 +86,23 @@ resource "aws_security_group_rule" "allow_uaa_ingress_cell" {
     security_group_id = "${aws_security_group.pcf-uaa.id}"
     source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
 }
+
+resource "aws_security_group_rule" "allow_uaa_ingress_router" {
+    description = "Inbound Router Access"
+    type = "ingress"
+    from_port = 8443
+    to_port = 8443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-uaa.id}"
+    source_security_group_id = "${aws_security_group.pcf-router.id}"
+}
+
+resource "aws_security_group_rule" "allow_uaa_ingress_router1" {
+    description = "Inbound Router Access"
+    type = "ingress"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-uaa.id}"
+    source_security_group_id = "${aws_security_group.pcf-router.id}"
+}

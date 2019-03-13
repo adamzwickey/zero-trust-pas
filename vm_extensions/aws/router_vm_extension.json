@@ -1,4 +1,6 @@
 vm-extension-config:
   name: router_vm_extension
   cloud_properties:
-    security_groups: ["pcf_router_security_group","pcf_default_security_group"]
+    security_groups:
+      - "pcf_router_security_group"
+      - "pcf_default_security_group"
