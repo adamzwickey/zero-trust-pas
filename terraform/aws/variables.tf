@@ -10,6 +10,7 @@ variable "aws_s3_endpoint_sg" {}
 
 #Other PCF Stuff
 variable "env_name" {}
+variable "cells_allow_all_internal" {}
 
 #Ops Manager
 variable "om_ingress_cidr" {}

@@ -9,3 +9,5 @@ aws_s3_endpoint_sg     = "pl-my-s3-gateway-pl"
 
 om_ingress_cidr        = "0.0.0.0/0"
 om_egress              = 1
+
+cells_allow_all_internal = 1
