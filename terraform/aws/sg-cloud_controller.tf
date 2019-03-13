@@ -96,3 +96,13 @@ resource "aws_security_group_rule" "allow_cc_ingress_loggregator" {
     security_group_id = "${aws_security_group.pcf-cc.id}"
     source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
 }
+
+resource "aws_security_group_rule" "allow_cc_ingress_loggregator1" {
+    description = "Inbound Loggregator Access"
+    type = "ingress"
+    from_port = 9024
+    to_port = 9024
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-cc.id}"
+    source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
+}

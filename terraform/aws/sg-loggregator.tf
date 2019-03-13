@@ -147,6 +147,16 @@ resource "aws_security_group_rule" "allow_loggregator_egress_cc" {
     source_security_group_id = "${aws_security_group.pcf-cc.id}"
 }
 
+resource "aws_security_group_rule" "allow_loggregator_egress_cc1" {
+    description = "Outbound Cloud Controller Access"
+    type = "egress"
+    from_port = 9024
+    to_port = 9024
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-loggregator.id}"
+    source_security_group_id = "${aws_security_group.pcf-cc.id}"
+}
+
 resource "aws_security_group_rule" "allow_loggregator_egress_bosh_metrics" {
     description = "Outbound BOSH Metrics Server Access"
     type = "egress"
