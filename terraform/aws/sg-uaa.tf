@@ -87,6 +87,16 @@ resource "aws_security_group_rule" "allow_uaa_ingress_cell" {
     source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
 }
 
+resource "aws_security_group_rule" "allow_uaa_ingress_celliso" {
+    description = "Inbound Diego Cell Access"
+    type = "ingress"
+    from_port = 8443
+    to_port = 8443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-uaa.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-celliso.id}"
+}
+
 resource "aws_security_group_rule" "allow_uaa_ingress_router" {
     description = "Inbound Router Access"
     type = "ingress"

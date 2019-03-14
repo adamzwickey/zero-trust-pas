@@ -117,6 +117,16 @@ resource "aws_security_group_rule" "allow_cc_ingress_diego_cells" {
     source_security_group_id = "${aws_security_group.pcf-diego-cell.id}"
 }
 
+resource "aws_security_group_rule" "allow_cc_ingress_diego_celliso" {
+    description = "Inbound Diego Cell Access"
+    type = "ingress"
+    from_port = 9023
+    to_port = 9023
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-cc.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego-celliso.id}"
+}
+
 resource "aws_security_group_rule" "allow_cc_ingress_router" {
     description = "Inbound Router Access"
     type = "ingress"

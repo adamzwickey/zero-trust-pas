@@ -1,0 +1,9 @@
+product-name: p-isolation-segment
+resource-config:
+  isolated_diego_cell:
+    instances: automatic
+    instance_type:
+      id: automatic
+    internet_connected: false
+    additional_vm_extensions:
+    - diego_cell_iso_vm_extension
