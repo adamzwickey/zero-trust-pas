@@ -13,6 +13,9 @@ variable "env_name" {}
 variable "cells_allow_all_internal" {}
 variable "router_ingress_cidr" {}
 variable "router_allow_http" {}
+variable "pas_nlb_cidr_blocks" {
+  type = "list"
+}
 
 #Ops Manager
 variable "om_ingress_cidr" {}

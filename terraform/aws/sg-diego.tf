@@ -207,6 +207,16 @@ resource "aws_security_group_rule" "allow_diego_ingress_internal" {
     self= true
 }
 
+resource "aws_security_group_rule" "allow_diego_egress_internal" {
+    description = "Outbound Diego Internal Access"
+    type = "egress"
+    from_port = 9016
+    to_port = 9016
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    self= true
+}
+
 resource "aws_security_group_rule" "allow_diego_ingress_rep" {
     description = "Inbound Diego Rep Access"
     type = "ingress"
@@ -234,5 +244,15 @@ resource "aws_security_group_rule" "allow_diego_ingress_network_policy" {
     to_port = 4002
     protocol = "tcp"
     security_group_id = "${aws_security_group.pcf-diego.id}"
-    source_security_group_id = "${aws_security_group.router.id}"
+    source_security_group_id = "${aws_security_group.pcf-router.id}"
+}
+
+resource "aws_security_group_rule" "allow_diego_egress_cc1" {
+    description = "Outbound CC Access"
+    type = "egress"
+    from_port = 9024
+    to_port = 9024
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    source_security_group_id = "${aws_security_group.pcf-cc.id}"
 }

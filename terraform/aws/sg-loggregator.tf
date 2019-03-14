@@ -17,9 +17,29 @@ resource "aws_security_group_rule" "allow_loggregator_ingress_self" {
     self = true
 }
 
+resource "aws_security_group_rule" "allow_loggregator_egress_self" {
+    description = "Outbound Loggregator (Self) Access"
+    type = "egress"
+    from_port = 8080
+    to_port = 8088
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-loggregator.id}"
+    self = true
+}
+
 resource "aws_security_group_rule" "allow_syslogadapter_ingress_self" {
     description = "Inbound Syslog Adapter (Self) Access"
     type = "ingress"
+    from_port = 4443
+    to_port = 4443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-loggregator.id}"
+    self = true
+}
+
+resource "aws_security_group_rule" "allow_syslogadapter_egress_self" {
+    description = "Outbound Syslog Adapter (Self) Access"
+    type = "egress"
     from_port = 4443
     to_port = 4443
     protocol = "tcp"

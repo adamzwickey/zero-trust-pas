@@ -136,3 +136,33 @@ resource "aws_security_group_rule" "allow_cc_ingress_router_api" {
     security_group_id = "${aws_security_group.pcf-cc.id}"
     source_security_group_id = "${aws_security_group.pcf-router.id}"
 }
+
+resource "aws_security_group_rule" "allow_cc_ingress_diego_db" {
+    description = "Inbound Diego DB Access"
+    type = "ingress"
+    from_port = 9024
+    to_port = 9024
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-cc.id}"
+    source_security_group_id = "${aws_security_group.pcf-diego.id}"
+}
+
+resource "aws_security_group_rule" "allow_cc_egress_pas_api" {
+    description = "Outbound PAS API Access"
+    type = "egress"
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-cc.id}"
+    cidr_blocks = "${var.pas_nlb_cidr_blocks}"
+}
+
+resource "aws_security_group_rule" "allow_cc_egress_pas_api1" {
+    description = "Outbound PAS API Access"
+    type = "egress"
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-cc.id}"
+    cidr_blocks = "${var.pas_nlb_cidr_blocks}"
+}

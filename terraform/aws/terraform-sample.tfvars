@@ -14,3 +14,4 @@ cells_allow_all_internal = 1
 
 router_ingress_cidr = "0.0.0.0/0"
 router_allow_http = 1
+pas_nlb_cidr_blocks = ["18.209.194.175/32","3.208.189.2/32","3.94.219.27/32"]
