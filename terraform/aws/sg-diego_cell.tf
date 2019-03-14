@@ -198,3 +198,23 @@ resource "aws_security_group_rule" "allow_cell_container_ingress_router" {
     security_group_id = "${aws_security_group.pcf-diego-cell.id}"
     source_security_group_id = "${aws_security_group.pcf-router.id}"
 }
+
+resource "aws_security_group_rule" "allow_cell_egress_pas_api1" {
+    description = "Outbound PAS API Access"
+    type = "egress"
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+    cidr_blocks = "${var.pas_nlb_cidr_blocks}"
+}
+
+resource "aws_security_group_rule" "allow_cell_egress_pas_api" {
+    description = "Outbound PAS API Access"
+    type = "egress"
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego-cell.id}"
+    cidr_blocks = "${var.pas_nlb_cidr_blocks}"
+}
