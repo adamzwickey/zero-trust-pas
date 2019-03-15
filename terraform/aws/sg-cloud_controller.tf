@@ -176,3 +176,13 @@ resource "aws_security_group_rule" "allow_cc_egress_pas_api1" {
     security_group_id = "${aws_security_group.pcf-cc.id}"
     cidr_blocks = "${var.pas_nlb_cidr_blocks}"
 }
+
+resource "aws_security_group_rule" "allow_cc_egress_tile_mysql" {
+    description = "Outbound MySL Broker Access"
+    type = "egress"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-cc.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-mysql.id}"
+}

@@ -285,3 +285,33 @@ resource "aws_security_group_rule" "allow_metrics_ingress_loggregtor2" {
     security_group_id = "${aws_security_group.pcf-bosh.id}"
     source_security_group_id = "${aws_security_group.pcf-loggregator.id}"
 }
+
+resource "aws_security_group_rule" "allow_metrics_ingress_tile_mysql" {
+    description = "Inbound MySQL Tile BOSH Access"
+    type = "ingress"
+    from_port = 25555
+    to_port = 25555
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-mysql.id}"
+}
+
+resource "aws_security_group_rule" "allow_metrics_ingress_tile_mysql1" {
+    description = "Inbound Loggregator BOSH Metrics Access"
+    type = "ingress"
+    from_port = 25595
+    to_port = 25595
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-mysql.id}"
+}
+
+resource "aws_security_group_rule" "allow_metrics_ingress_tile_mysql2" {
+    description = "Inbound Loggregator BOSH Metrics Access"
+    type = "ingress"
+    from_port = 8443
+    to_port = 8443
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-mysql.id}"
+}

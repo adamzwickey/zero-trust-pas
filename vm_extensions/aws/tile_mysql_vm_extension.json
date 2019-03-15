@@ -1,0 +1,4 @@
+vm-extension-config:
+  name: tile_mysql_vm_extension
+  cloud_properties:
+    security_groups: ["pcf_tile_mysql_security_group","pcf_default_security_group"]

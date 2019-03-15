@@ -216,3 +216,13 @@ resource "aws_security_group_rule" "allow_loggregator_egress_syslog" {
     cidr_blocks = ["0.0.0.0/0"]
     security_group_id = "${aws_security_group.pcf-loggregator.id}"
 }
+
+resource "aws_security_group_rule" "allow_loggregator_ingress_tile_mysql" {
+    description = "Inbound MySQL Tile Access"
+    type = "ingress"
+    from_port = 8080
+    to_port = 8088
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-loggregator.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-mysql.id}"
+}

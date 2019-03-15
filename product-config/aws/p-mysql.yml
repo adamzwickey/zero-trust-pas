@@ -1,0 +1,9 @@
+product-name: pivotal-mysql
+resource-config:
+  dedicated-mysql-broker:
+    instances: automatic
+    instance_type:
+      id: automatic
+    internet_connected: false
+    additional_vm_extensions:
+    - tile_mysql_vm_extension
