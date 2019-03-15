@@ -86,3 +86,23 @@ resource "aws_security_group_rule" "allow_nats_ingress_diego_celliso" {
     security_group_id = "${aws_security_group.pcf-nats.id}"
     source_security_group_id = "${aws_security_group.pcf-diego-celliso.id}"
 }
+
+resource "aws_security_group_rule" "allow_nats_ingress_self" {
+    description = "Inbound NATS (Self) Access"
+    type = "ingress"
+    from_port = 4223
+    to_port = 4223
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-nats.id}"
+    self = true
+}
+
+resource "aws_security_group_rule" "allow_nats_egress_self" {
+    description = "Outbound NATS (Self) Access"
+    type = "egress"
+    from_port = 4223
+    to_port = 4223
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-nats.id}"
+    self = true
+}
