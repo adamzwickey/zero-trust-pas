@@ -7,6 +7,8 @@ aws_ec2_endpoint_sg    = "sg-my-endpoint-sg-id"
 aws_elb_endpoint_sg    = "sg-my-endpoint-sg-id"
 aws_s3_endpoint_sg     = "pl-my-s3-gateway-pl"
 
+internal_cidr          = "10.0.0.0/16"
+
 om_ingress_cidr        = "0.0.0.0/0"
 om_egress              = 1
 

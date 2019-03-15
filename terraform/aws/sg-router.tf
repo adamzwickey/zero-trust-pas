@@ -128,3 +128,33 @@ resource "aws_security_group_rule" "allow_router_egress_diego_celliso" {
     security_group_id = "${aws_security_group.pcf-router.id}"
     source_security_group_id = "${aws_security_group.pcf-diego-celliso.id}"
 }
+
+resource "aws_security_group_rule" "allow_router_egress_rmq1" {
+    description = "Outbound RMQ Server Access"
+    type = "egress"
+    from_port = 4567
+    to_port = 4567
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-rmq.id}"
+}
+
+resource "aws_security_group_rule" "allow_router_egress_rmq2" {
+    description = "Outbound RMQ ODB Access"
+    type = "egress"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-rmq.id}"
+}
+
+resource "aws_security_group_rule" "allow_router_egress_rmq3" {
+    description = "Outbound RMQ Server Access"
+    type = "egress"
+    from_port = 15672
+    to_port = 15672
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-router.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-rmq.id}"
+}

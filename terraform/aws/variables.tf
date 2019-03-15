@@ -8,6 +8,8 @@ variable "aws_ec2_endpoint_sg" {}
 variable "aws_elb_endpoint_sg" {}
 variable "aws_s3_endpoint_sg" {}
 
+variable "internal_cidr" {}
+
 #Other PCF Stuff
 variable "env_name" {}
 variable "cells_allow_all_internal" {}

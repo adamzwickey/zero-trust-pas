@@ -1,0 +1,14 @@
+product-name: p-rabbitmq
+resource-config:
+  on-demand-broker:
+    additional_vm_extensions:
+    - tile_rabbitmq_vm_extension
+  rabbitmq-broker:
+    additional_vm_extensions:
+    - tile_rabbitmq_vm_extension
+  rabbitmq-haproxy:
+    additional_vm_extensions:
+    - tile_rabbitmq_vm_extension
+  rabbitmq-server:
+    additional_vm_extensions:
+    - tile_rabbitmq_vm_extension

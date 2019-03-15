@@ -1,0 +1,4 @@
+vm-extension-config:
+  name: tile_rabbitmq_vm_extension
+  cloud_properties:
+    security_groups: ["pcf_tile_rmq_security_group","pcf_tile_odb_security_group","pcf_default_security_group"]
