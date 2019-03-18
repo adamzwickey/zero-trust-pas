@@ -356,3 +356,13 @@ resource "aws_security_group_rule" "allow_diego_egress_cc1" {
     security_group_id = "${aws_security_group.pcf-diego.id}"
     source_security_group_id = "${aws_security_group.pcf-cc.id}"
 }
+
+resource "aws_security_group_rule" "allow_diego_ingress_external_ssh" {
+    description = "Inbound Diego Cell Container SSH Access"
+    type = "ingress"
+    from_port = 2222
+    to_port = 2222
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego.id}"
+    cidr_blocks = ["${var.router_ingress_cidr}"]
+}

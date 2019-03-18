@@ -97,4 +97,15 @@ resource "aws_security_group" "pcf-default" {
         protocol = "tcp"
         security_groups = ["${aws_security_group.pcf-bosh.id}"]
     }
+
+    /*
+      Default Security Group
+    */
+    egress {
+        description = "Temp Access to Dynatrace"
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        cidr_blocks = ["52.5.76.57/32","52.4.169.68/32","54.77.175.7/32","52.214.31.22/32"]
+    }
 }

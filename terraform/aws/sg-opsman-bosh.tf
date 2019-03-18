@@ -157,7 +157,7 @@ resource "aws_security_group" "pcf-bosh" {
 }
 
 resource "aws_security_group_rule" "allow_om_ssh_ingress" {
-    description = "Inbound OpsMan SSH Access"
+    description = "Inbound OpsMan SSH Access from BOSH"
     type = "ingress"
     from_port = 22
     to_port = 22
@@ -194,6 +194,26 @@ resource "aws_security_group_rule" "allow_default_bosh_registry_ingress" {
     protocol = "tcp"
     security_group_id = "${aws_security_group.pcf-bosh.id}"
     source_security_group_id = "${aws_security_group.pcf-default.id}"
+}
+
+resource "aws_security_group_rule" "allow_default_bosh_registry_ingress-temp" {
+    description = "Inbound Default BOSH Registry Access for self"
+    type = "ingress"
+    from_port = 25777
+    to_port = 25777
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    self = true
+}
+
+resource "aws_security_group_rule" "allow_default_bosh_registry_egress-temp" {
+    description = "Outbound Default BOSH Registry Access for self"
+    type = "egress"
+    from_port = 25777
+    to_port = 25777
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-bosh.id}"
+    self = true
 }
 
 resource "aws_security_group_rule" "allow_default_bosh_agent_ingress" {

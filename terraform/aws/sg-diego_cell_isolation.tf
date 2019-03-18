@@ -218,3 +218,23 @@ resource "aws_security_group_rule" "allow_celliso_egress_pas_api" {
     security_group_id = "${aws_security_group.pcf-diego-celliso.id}"
     cidr_blocks = "${var.pas_nlb_cidr_blocks}"
 }
+
+resource "aws_security_group_rule" "allow_router_egress_celliso_rmq3" {
+    description = "Outbound RMQ Server Access"
+    type = "egress"
+    from_port = 15672
+    to_port = 15672
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego-celliso.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-rmq.id}"
+}
+
+resource "aws_security_group_rule" "allow_router_egress_cell_iso_rmq4" {
+    description = "Outbound RMQ Server Access"
+    type = "egress"
+    from_port = 5671
+    to_port = 5672
+    protocol = "tcp"
+    security_group_id = "${aws_security_group.pcf-diego-celliso.id}"
+    source_security_group_id = "${aws_security_group.pcf-tile-rmq.id}"
+}
