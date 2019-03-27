@@ -9,7 +9,7 @@ A set of configuration -- VM Extensions, Product Config, and Terraform -- for cr
 * All VMs
 
 | Port          | Source        | Target Resource | Comments | Transport Layer Protocol | App Layer Protocol | Security & Auth |
-| ------------- | ------------- |
+| ------------- | ------------- | --------------- | -------- | ------------------------ | ------------------ | ------------------- |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
 
